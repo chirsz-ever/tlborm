@@ -1,0 +1,340 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>宏展开 - The Little Book of Rust Macros （Rust 宏小册）</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../../favicon.png">
+        
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="../../theme/rust-syntax-bg-highlight.css">
+        
+        <link rel="stylesheet" href="../../theme/style.css">
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item affix "><a href="../../introduction.html">简介</a></li><li class="chapter-item expanded "><a href="../../macros.html"><strong aria-hidden="true">1.</strong> 方法</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../macros/syntax.html"><strong aria-hidden="true">1.1.</strong> 语法拓展</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../macros/syntax/source-analysys.html"><strong aria-hidden="true">1.1.1.</strong> 源代码解析</a></li><li class="chapter-item "><a href="../../macros/syntax/ast.html"><strong aria-hidden="true">1.1.2.</strong> AST 中的宏</a></li><li class="chapter-item expanded "><a href="../../macros/syntax/expansion.html" class="active"><strong aria-hidden="true">1.1.3.</strong> 宏展开</a></li></ol></li><li class="chapter-item "><a href="../../macros/macro_rules.html"><strong aria-hidden="true">1.2.</strong> macro_rules!</a></li><li class="chapter-item "><a href="../../macros/minutiae.html"><strong aria-hidden="true">1.3.</strong> 细节</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../macros/minutiae/fragment-specifiers.html"><strong aria-hidden="true">1.3.1.</strong> 片段分类符</a></li><li class="chapter-item "><a href="../../macros/minutiae/metavar-and-expansion.html"><strong aria-hidden="true">1.3.2.</strong> 再谈元变量与宏展开</a></li><li class="chapter-item "><a href="../../macros/minutiae/hygiene.html"><strong aria-hidden="true">1.3.3.</strong> 宏是部分“卫生的”</a></li><li class="chapter-item "><a href="../../macros/minutiae/identifiers.html"><strong aria-hidden="true">1.3.4.</strong> 非标识符的“标识符”</a></li><li class="chapter-item "><a href="../../macros/minutiae/debugging.html"><strong aria-hidden="true">1.3.5.</strong> 调试</a></li><li class="chapter-item "><a href="../../macros/minutiae/scoping.html"><strong aria-hidden="true">1.3.6.</strong> 作用域</a></li><li class="chapter-item "><a href="../../macros/minutiae/import-export.html"><strong aria-hidden="true">1.3.7.</strong> 导入/导出宏</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../macros-practical.html"><strong aria-hidden="true">2.</strong> 实战</a></li><li class="chapter-item "><a href="../../patterns.html"><strong aria-hidden="true">3.</strong> 模式</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../patterns/callbacks.html"><strong aria-hidden="true">3.1.</strong> 回调</a></li><li class="chapter-item "><a href="../../patterns/tt-muncher.html"><strong aria-hidden="true">3.2.</strong> tt “撕咬机“</a></li><li class="chapter-item "><a href="../../patterns/internal-rules.html"><strong aria-hidden="true">3.3.</strong> 内用规则</a></li><li class="chapter-item "><a href="../../patterns/push-down-acc.html"><strong aria-hidden="true">3.4.</strong> 下推累积</a></li><li class="chapter-item "><a href="../../patterns/repetition-replacement.html"><strong aria-hidden="true">3.5.</strong> 反复替换</a></li><li class="chapter-item "><a href="../../patterns/tt-bundling.html"><strong aria-hidden="true">3.6.</strong> tt 捆绑</a></li></ol></li><li class="chapter-item "><a href="../../building-blocks.html"><strong aria-hidden="true">4.</strong> 构件</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../building-blocks/ast-coercion.html"><strong aria-hidden="true">4.1.</strong> AST 强制转换</a></li><li class="chapter-item "><a href="../../building-blocks/counting.html"><strong aria-hidden="true">4.2.</strong> 计数</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../building-blocks/abacus-counting.html"><strong aria-hidden="true">4.2.1.</strong> 算盘计数</a></li></ol></li><li class="chapter-item "><a href="../../building-blocks/parsing.html"><strong aria-hidden="true">4.3.</strong> 解析</a></li></ol></li><li class="chapter-item "><a href="../../translation_statement.html">翻译说明</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">The Little Book of Rust Macros （Rust 宏小册）</h1>
+
+                    <div class="right-buttons">
+                        
+                        
+                        <a href="https://github.com/zjp-CN/tlborm" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                        
+
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- Page table of contents -->
+                        <div class="sidetoc"><nav class="pagetoc"></nav></div>
+                        
+						<h1 id="宏展开"><a class="header" href="#宏展开">宏展开</a></h1>
+<p>展开相对简单。在生成 AST <em>之后</em> ，对程序进行语义理解之前的某个时间点，编译器将会对所有宏进行展开。</p>
+<p>这一过程包括，遍历 AST，定位所有宏调用，并将它们用其展开进行替换。</p>
+<p>在非宏的语法扩展情境中，此过程具体如何发生根据具体情境各有不同。
+但所有语法扩展在展开完成之后所经历的历程都与宏所经历的相同。</p>
+<p>每当编译器遇见一个语法扩展，都会根据上下文解析成语法元素集。
+该语法扩展的展开结果应能被顺利解析为集合中的某个元素。</p>
+<p>举例来说，如果在模组作用域内调用了宏，
+那么编译器就会尝试将该宏的展开结果解析为一个表示某项条目 (item) 的 AST 节点。
+如果在需要表达式的位置调用了宏，那么编译器就会尝试将该宏的展开结果解析为一个表示表达式的AST节点。</p>
+<p>事实上，语义扩展能够被转换成以下任意一种：</p>
+<ul>
+<li>一个表达式</li>
+<li>一个模式</li>
+<li>一个类型</li>
+<li>零或多个条目（包括的 <code>impl</code> 块）</li>
+<li>零或多个语句</li>
+</ul>
+<p>换句话讲，宏调用所在的位置，决定了该宏展开之后的结果被解读的方式。</p>
+<p>编译器将把 AST 中表示宏调用的节点用其宏展开的输出节点完全替换。
+这一替换是结构性 (structural) 的，而非织构性 (textural) 的。</p>
+<p>比如思考以下代码：</p>
+<pre><code class="language-rust ignore">let eight = 2 * four!();
+</code></pre>
+<p>我们可将这部分 AST 表示为：</p>
+<pre><code class="language-text">┌─────────────┐
+│ Let         │
+│ name: eight │   ┌─────────┐
+│ init: ◌     │╶─╴│ BinOp   │
+└─────────────┘   │ op: Mul │
+                ┌╴│ lhs: ◌  │
+     ┌────────┐ │ │ rhs: ◌  │╶┐ ┌────────────┐
+     │ LitInt │╶┘ └─────────┘ └╴│ Macro      │
+     │ val: 2 │                 │ name: four │
+     └────────┘                 │ body: ()   │
+                                └────────────┘
+</code></pre>
+<p>根据上下文，<code>four!()</code> 必须展开成一个表达式 (初始化语句只可能是表达式)。
+因此，无论实际展开结果如何，它都将被解读成一个完整的表达式。</p>
+<p>此处我们假设，<code>four!</code> 的定义保证它被展开为表达式 <code>1 + 3</code>。
+故而，展开这一宏调用将使整个 AST 变为：</p>
+<pre><code class="language-text">┌─────────────┐
+│ Let         │
+│ name: eight │   ┌─────────┐
+│ init: ◌     │╶─╴│ BinOp   │
+└─────────────┘   │ op: Mul │
+                ┌╴│ lhs: ◌  │
+     ┌────────┐ │ │ rhs: ◌  │╶┐ ┌─────────┐
+     │ LitInt │╶┘ └─────────┘ └╴│ BinOp   │
+     │ val: 2 │                 │ op: Add │
+     └────────┘               ┌╴│ lhs: ◌  │
+                   ┌────────┐ │ │ rhs: ◌  │╶┐ ┌────────┐
+                   │ LitInt │╶┘ └─────────┘ └╴│ LitInt │
+                   │ val: 1 │                 │ val: 3 │
+                   └────────┘                 └────────┘
+</code></pre>
+<p>这又能被重写成：</p>
+<pre><code class="language-rust ignore">let eight = 2 * (1 + 3);
+</code></pre>
+<p>注意到虽然表达式本身不包含括号，我们仍加上了它们。
+这是因为，编译器总是将宏展开结果作为完整的AST节点对待，而 <em>不是</em> 仅仅作为一列标记。
+换句话说，即便不显式地把复杂的表达式用括号包起来，
+编译器也不可能“错意”宏替换的结果，或者改变求值顺序。</p>
+<p>理解这一点——宏展开被当作AST节点看待——非常重要，它造成两大影响：</p>
+<ul>
+<li>宏不仅调用位置有限制，其展开结果也 <em>只能</em> 跟语法分析器在该位置所预期的 AST 节点种类一致。</li>
+<li>因此，宏 <em>必定无法</em> 展开成不完整或不合语法的结构。</li>
+</ul>
+<p>有关展开还有一条值得注意：
+如果某次语法扩展的展开结果包含了 <em>另一次</em> 语法扩展调用，那会怎么样？
+例如，上述 <code>four!</code> 如果被展开成了 <code>1 + three!()</code>，会发生什么?</p>
+<pre><code class="language-rust ignore">let x = four!();
+</code></pre>
+<p>展开成：</p>
+<pre><code class="language-rust ignore">let x = 1 + three!();
+</code></pre>
+<p>编译器将会检查扩展结果中是否包含更多的宏调用；
+如果有，它们将被进一步展开。
+因此，上述 AST 节点将被再次展开成：</p>
+<pre><code class="language-rust ignore">let x = 1 + 3;
+</code></pre>
+<p>这个例子告诉我们，宏展开发生在“传递”过程中；要完全展开所有调用，就需要同样多的传递。</p>
+<p>嗯，也不全是如此。
+事实上，编译器为此设置了一个上限。它被称作宏递归上限，默认值为 128。
+如果第 128 次展开结果仍然包含宏调用，编译器将会终止并返回一个递归上限溢出的错误信息。</p>
+<p>此上限可通过 <a href="https://doc.rust-lang.org/reference/attributes/limits.html#the-recursion_limit-attribute"><code>#![recursion_limit=&quot;…&quot;]</code></a> 被改写，
+但这种改写必须是 crate 级别的。 
+一般来讲，可能的话最好还是尽量让宏展开递归次数保持在默认值以下，因为会影响编译时间。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../../macros/syntax/ast.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../../macros/macro_rules.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../../macros/syntax/ast.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../../macros/macro_rules.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+        <script src="../../ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mode-rust.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../theme-dawn.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../theme-tomorrow_night.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="../../theme/sidebar.js"></script>
+        
+
+        
+
+    </body>
+</html>
